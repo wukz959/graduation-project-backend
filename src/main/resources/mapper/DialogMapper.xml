@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myworld.gradution_project_backend.mapper.DialogMapper">
+
+    <resultMap id="BaseResultMap" type="com.myworld.gradution_project_backend.bean.Dialog">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+            <result property="sessionSeq" column="session_seq" jdbcType="INTEGER"/>
+            <result property="dialogSeq" column="dialog_seq" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="role" column="role" jdbcType="OTHER"/>
+    </resultMap>
+    <resultMap id="dialogAndFileResultMap" type="com.myworld.gradution_project_backend.VO.FullDialog">
+        <result column="session_seq" property="sessionSeq"></result>
+        <result column="dialog_seq" property="dialogSeq"></result>
+        <result column="content" property="content"></result>
+        <result column="role" property="role"></result>
+        <collection property="fileList" ofType="com.myworld.gradution_project_backend.bean.File">
+            <result column="file_url" property="fileUrl"></result>
+            <result column="file_name" property="fileName"></result>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,session_seq,
+        dialog_seq,content,create_time,
+        `role`
+    </sql>
+    <select id="getDialogCountByUserId" resultType="Integer"  parameterType="java.lang.String">
+        select count(*) from dialog dia
+        join user u on dia.user_id = u.id
+        where dia.user_id = #{userId}
+    </select>
+    <select id="getDialogHistoryByUserIdAndSessionSeq" resultMap="dialogAndFileResultMap">
+        select dia.session_seq, dia.dialog_seq, dia.role, dia.content, f.file_url, f.file_name
+        from dialog dia
+        left join file f
+        on dia.id = f.dialog_id
+        where dia.user_id = #{id}
+        and dia.session_seq = #{sessionSeq}
+        and dia.role != 'SYSTEM'
+    </select>
+</mapper>
