@@ -20,5 +20,5 @@ public interface DialogService extends IService<Dialog> {
 
     List<FullDialog> getDialogHistoryByUserIdAndSessionSeq(String id,Integer sessionSeq);
 
-    DialogRespDto getTextToTextResp(String userId, Integer sessionSeq, String content);
+    DialogRespDto getTextToTextResp(String userId, Integer sessionSeq);
 }

@@ -75,14 +75,14 @@ public class DialogServiceImpl extends ServiceImpl<DialogMapper, Dialog>
     }
 
     @Override
-    public DialogRespDto getTextToTextResp(String userId, Integer sessionSeq, String content) {
+    public DialogRespDto getTextToTextResp(String userId, Integer sessionSeq) {
         QueryWrapper<Dialog> wrapper = new QueryWrapper<>();
         QueryWrapper<Dialog> queryWrapper = wrapper.eq("user_id", userId)
                 .eq("session_seq", sessionSeq)
                 .not(item -> item.eq("role","image"))
                 .orderByAsc("dialog_seq");
         List<Dialog> dialogs = baseMapper.selectList(queryWrapper);
-        // 提高上下文
+        // 提供上下文
         List<ChatMessage> chatMessageList = new ArrayList<>();
         dialogs.forEach(dialog -> chatMessageList.add(
                 new ChatMessage(dialog.getRole().getName().toLowerCase(),dialog.getContent())));

@@ -98,7 +98,7 @@ public class GPTController {
         boolean isImageReq = Boolean.parseBoolean(isImageMode);
         DialogRespDto dialogRespDto = null;
         if (!isImageReq){
-            dialogRespDto = dialogService.getTextToTextResp(userId,sessionSeq,content);
+            dialogRespDto = dialogService.getTextToTextResp(userId,sessionSeq);
         }else if (fileUrlList.size() == 0){
             dialogRespDto = fileService.getTextToImageResp(userId,sessionSeq, content);
         }else {
