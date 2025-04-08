@@ -9,6 +9,7 @@ import com.myworld.gradution_project_backend.VO.GptModel;
 import com.myworld.gradution_project_backend.bean.Dialog;
 import com.myworld.gradution_project_backend.service.DialogService;
 import com.myworld.gradution_project_backend.mapper.DialogMapper;
+import com.myworld.gradution_project_backend.utils.Constants;
 import com.myworld.gradution_project_backend.utils.JWTUtils;
 import com.myworld.gradution_project_backend.utils.TimeUtils;
 import com.myworld.gradution_project_backend.web.GptModelBridge;
@@ -53,6 +54,11 @@ public class DialogServiceImpl extends ServiceImpl<DialogMapper, Dialog>
                     .orderByDesc("dialog_seq").last("limit 1");
             Dialog lastDialog = baseMapper.selectOne(queryWrapper);
             nowRole = (lastDialog==null || lastDialog.getRole() == DialogRole.ASSISTANT )? DialogRole.USER : DialogRole.ASSISTANT;
+            if (lastDialog == null){
+                Dialog firstDialog = Dialog.builder().userId(userId).sessionSeq(sessionSeq).dialogSeq(0).dialogSeq(0)
+                        .content(Constants.GPT_PROMPT).createTime(createTime).role(DialogRole.SYSTEM).build();
+                baseMapper.insert(firstDialog);
+            }
         }
 
         Dialog dialog = Dialog.builder().content(content).sessionSeq(sessionSeq)

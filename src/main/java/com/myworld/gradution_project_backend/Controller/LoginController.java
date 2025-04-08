@@ -29,7 +29,7 @@ public class LoginController {
     private UserService userService;
     @PostMapping("/login")
     public String login(@RequestBody User user){
-        // 没验证密码等，一坨答辩代码
+        // 没验证密码等
         HashMap<String,String> map = new HashMap();
         map.put("username",user.getUsername());
         user.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

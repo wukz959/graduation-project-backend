@@ -8,11 +8,6 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/gradution-project?useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 2180952qwe
-  data:
-    redis:
-      host: 8.134.180.176
-      port: 1004
-      password: 123456qwe
   servlet:
     multipart:
       max-file-size: 5MB        # 设置单个文件最大大小为5MB
@@ -27,7 +22,7 @@ myGPT:
   #  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
   host: ${GPT_HOST:https://chatmyworld.fun}
   port: ${GPT_PORT:80}
-  apiKey: ${GPT_API_KEY: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}
+  apiKey: ${GPT_API_KEY:example-code}
 #  model: ${GPT_MODEL:gpt-3.5-turbo}
 #  maxTokens: ${GPT_MAX_TOKEN:800} # 每个回答最多可消费token
 #  textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
@@ -35,11 +30,11 @@ myGPT:
 #  maxIPCount: ${GPT_MAX_IP_COUNT:30} # 最多允许多少IP访问
 openai-gpt:
   host: https://chatmyworld.fun
-  token: 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
+  token: example-code
 tencent-gpt:
     credential:
-      id: AKIDYw74mGWXCrLcmofOzPgmyOlEeAiFvRlr
-      key: DJNwKWUEoEVfotkcMsGWaVDhy2tXyCD1
+      id: example-code
+      key: example-code
 
 mybatis-plus:
   type-aliases-package: com.remark.entity # 别名扫描包
